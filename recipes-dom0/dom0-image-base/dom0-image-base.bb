@@ -5,7 +5,8 @@ LICENSE = "MIT"
 
 S = "${WORKDIR}/repo"
 
-SRC_URI = "repo://github.com/andr2000/manifests.git;manifest=default;protocol=https;branch=2017"
+SRC_URI = "repo:///home/a2k/projects/build-sandbox/build-manifest.git;manifest=xt-image-weston/rcar/m3ulcb/01-dom0/manifest;protocol=file"
+
 XT_SRC_URI_salvator-x = "file://${S}/meta-renesas/meta-rcar-gen3/docs/sample/patch/patch-for-linaro-gcc/0001-rcar-gen3-add-readme-for-building-with-Linaro-Gcc.patch;patchdir=meta-renesas"
 
 XT_BB_IMAGE_TARGET = "core-image-weston"
