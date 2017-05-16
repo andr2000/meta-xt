@@ -14,3 +14,5 @@ XT_BB_LOCAL_CONF_FILE = "meta-demo/meta-rcar-gen3-xen/doc/local-wayland.conf"
 XT_BB_LAYERS_FILE = "meta-demo/meta-rcar-gen3-xen/doc/bblayers.conf"
 
 inherit build_yocto
+# for R-Car:
+inherit patch_quircks
