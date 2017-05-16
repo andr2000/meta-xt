@@ -6,15 +6,16 @@ LICENSE = "MIT"
 S = "${WORKDIR}/repo"
 
 SRC_URI = "repo://github.com/andr2000/manifests.git;manifest=default;protocol=https;branch=2017"
+XT_SRC_URI_salvator-x = "file://${S}/meta-renesas/meta-rcar-gen3/docs/sample/patch/patch-for-linaro-gcc/0001-rcar-gen3-add-readme-for-building-with-Linaro-Gcc.patch;patchdir=meta-renesas"
 
 XT_BB_IMAGE_TARGET = "core-image-weston"
 XT_BB_LOCAL_CONF_FILE = "meta-demo/meta-rcar-gen3-xen/doc/local-wayland.conf"
 XT_BB_LAYERS_FILE = "meta-demo/meta-rcar-gen3-xen/doc/bblayers.conf"
 
-do_patch() {
-    cd ${S}
-    # FIXME: this is a hack to patch r-car meta layer
-    /usr/bin/patch -p1 <  "${S}/meta-renesas/meta-rcar-gen3/docs/sample/patch/patch-for-linaro-gcc/0001-rcar-gen3-add-readme-for-building-with-Linaro-Gcc.patch"
+python do_patch_prepend() {
+    d.appendVar("SRC_URI", "\n")
+    d.appendVar("SRC_URI", d.getVar("XT_SRC_URI") or "")
+    bb.debug(1, str(d.getVar("SRC_URI").split()))
 }
 
 inherit build_yocto
