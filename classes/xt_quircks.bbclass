@@ -34,17 +34,18 @@ def remove_tarfile(url, type, location, d):
         os.remove(arcname)
 
 python do_unpack_prepend() {
+    # now deliver all the extras into inner build system
     d.appendVar("SRC_URI", "\n")
-    urls = (d.getVar("XT_QUIRCK_FETCH_SRC_URI") or "").split()
+    urls = (d.getVar("XT_QUIRCK_UNPACK_SRC_URI") or "").split()
     for url in urls:
         type, _, location, _, _, _ = bb.fetch.decodeurl(url)
         item = check_url_or_pack(url, type, location, d)
         d.appendVar("SRC_URI", item or "")
 }
 
-# remove the archives we created
 python do_unpack_append() {
-    urls = (d.getVar("XT_QUIRCK_FETCH_SRC_URI") or "").split()
+    # remove the archives we created
+    urls = (d.getVar("XT_QUIRCK_UNPACK_SRC_URI") or "").split()
     for url in urls:
         type, _, location, _, _, _ = bb.fetch.decodeurl(url)
         item = remove_tarfile(url, type, location, d)

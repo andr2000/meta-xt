@@ -1,7 +1,9 @@
-SUMMARY = "A console-only image that fully supports the target device \
-hardware."
+SUMMARY = "A console-only image that fully supports the target device hardware."
 
 LICENSE = "MIT"
+
+inherit build_yocto
+inherit xt_quircks
 
 S = "${WORKDIR}/repo"
 
@@ -13,6 +15,3 @@ XT_BB_LAYERS_FILE_salvator-x = "meta-demo/meta-rcar-gen3-xen/doc/bblayers.conf"
 
 XT_BB_IMAGE_TARGET = "core-image-weston"
 XT_BB_LAYERS_FILE = "meta-test/doc/bblayers.conf"
-
-inherit build_yocto
-inherit xt_quircks
