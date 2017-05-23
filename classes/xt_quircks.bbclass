@@ -53,6 +53,8 @@ python do_unpack_xt_extras() {
 python do_configure_append() {
     # generate bbappend to the kernel's recipe if needed
     bb.build.exec_func('do_kernel_deploy_bbappend_generate', d)
+    # generate recipie to import kernels from other domains if needed
+    bb.build.exec_func('do_kernel_import_generate', d)
 }
 
 python do_patch_prepend() {
