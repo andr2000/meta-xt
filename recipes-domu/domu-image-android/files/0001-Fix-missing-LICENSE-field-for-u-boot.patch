@@ -1,0 +1,25 @@
+From 16cc03016ade08df860f66a595cf0febfa235b69 Mon Sep 17 00:00:00 2001
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Date: Thu, 19 Oct 2017 16:01:43 +0300
+Subject: [PATCH] Fix missing LICENSE field for u-boot
+
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+---
+ meta-rcar-gen3/recipes-bsp/u-boot/u-boot_2015.04.bb | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/meta-rcar-gen3/recipes-bsp/u-boot/u-boot_2015.04.bb b/meta-rcar-gen3/recipes-bsp/u-boot/u-boot_2015.04.bb
+index 5af3632d673e..f6065fe848ed 100644
+--- a/meta-rcar-gen3/recipes-bsp/u-boot/u-boot_2015.04.bb
++++ b/meta-rcar-gen3/recipes-bsp/u-boot/u-boot_2015.04.bb
+@@ -5,6 +5,7 @@ DEPENDS += "dtc-native"
+ UBOOT_URL = "git://github.com/renesas-rcar/u-boot.git"
+ BRANCH = "v2015.04/rcar-3.5.6"
+ 
++LICENSE = "GPLv2+"
+ LIC_FILES_CHKSUM = "file://Licenses/README;md5=c7383a594871c03da76b3707929d2919"
+ 
+ SRC_URI = "${UBOOT_URL};branch=${BRANCH}"
+-- 
+2.7.4
+
