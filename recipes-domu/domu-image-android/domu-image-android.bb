@@ -6,7 +6,6 @@ inherit build_yocto
 inherit xt_quirks
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-FILESEXTRAPATHS_prepend := "${THISDIR}/../../machine:"
 
 S = "${WORKDIR}"
 
@@ -15,9 +14,6 @@ S = "${WORKDIR}"
 # specific commit ID
 ################################################################################
 SRCREV = "${AUTOREV}"
-
-XT_BB_LAYERS_FILE = "meta-xt-images-extra/doc/bblayers.conf.domu-image-android"
-XT_BB_LOCAL_CONF_FILE = "meta-xt-images-extra/doc/local.conf.domu-image-android"
 
 ###############################################################################
 # extra layers and files to be put after Yocto's do_unpack into inner builder
@@ -34,29 +30,21 @@ XT_QUIRK_BB_ADD_LAYER += " \
 
 # meta layers needed to build Android native build environment, e.g. openjdk
 SRC_URI_append = " \
-    git://git.yoctoproject.org/poky;branch=pyro;destsuffix=poky;scmdata=keep \
-    git://git.yoctoproject.org/meta-java;branch=pyro;destsuffix=meta-java;scmdata=keep \
-    git://git.openembedded.org/meta-openembedded;branch=pyro;destsuffix=meta-openembedded;scmdata=keep \
-    file://0001-Fix-missing-LICENSE-field-for-u-boot.patch;patchdir=meta-renesas \
-    file://0001-Speed-up-repo-synchronization.patch;patchdir=poky \
+    git://git.yoctoproject.org/poky;branch=morty;destsuffix=poky;scmdata=keep \
+    git://git.yoctoproject.org/meta-java;branch=morty;destsuffix=meta-java;scmdata=keep \
+    git://git.openembedded.org/meta-openembedded;branch=morty;destsuffix=meta-openembedded;scmdata=keep \
 "
 
-################################################################################
-# Renesas R-Car
-################################################################################
+configure_versions_base() {
+    local local_conf="${S}/build/conf/local.conf"
 
-# FIXME: all gen3 layers are only needed for getting SOC_FAMILY and setting machine overrides
-SRC_URI_append_rcar = " \
-    git://github.com/renesas-rcar/meta-renesas;destsuffix=meta-renesas;branch=krogoth;scmdata=keep \
-"
+    cd ${S}
+    # override what xt-distro wants as machine as we will only use
+    # machines understood by Poky
+    base_update_conf_value ${local_conf} MACHINE "qemux86-64"
+}
 
-XT_QUIRK_UNPACK_SRC_URI_append_rcar = "\
-    file://meta-xt-images-rcar-gen3 \
-"
-
-# these layers will be added to bblayers.conf on do_configure
-XT_QUIRK_BB_ADD_LAYER_append_rcar = "\
-    meta-renesas/meta-rcar-gen3 \
-    meta-xt-images-rcar-gen3 \
-"
+python do_configure_append() {
+    bb.build.exec_func("configure_versions_base", d)
+}
 
