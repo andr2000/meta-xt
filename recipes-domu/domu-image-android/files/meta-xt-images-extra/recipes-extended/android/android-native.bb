@@ -16,7 +16,13 @@ require inc/xt_shared_env.inc
 
 DEPENDS += "openjdk-8-native"
 
-EXTRA_OEMAKE += "OUT_DIR_COMMON_BASE=${DEPLOY_DIR_IMAGE}"
+EXTRA_OEMAKE += " \
+    OUT_DIR_COMMON_BASE=${DEPLOY_DIR} \
+    ANDROID_JAVA_HOME=${STAGING_LIBDIR_NATIVE}/jvm/openjdk-8-native \
+"
+
+do_configure() {
+}
 
 do_compile_append() {
     export USE_CCACHE=1
