@@ -32,11 +32,13 @@ XT_QUIRK_BB_ADD_LAYER += " \
     meta-xt-images-extra \
 "
 
+# meta layers needed to build Android native build environment, e.g. openjdk
 SRC_URI_append = " \
     git://git.yoctoproject.org/poky;branch=pyro;destsuffix=poky;scmdata=keep \
     git://git.yoctoproject.org/meta-java;branch=pyro;destsuffix=meta-java;scmdata=keep \
     git://git.openembedded.org/meta-openembedded;branch=pyro;destsuffix=meta-openembedded;scmdata=keep \
     file://0001-Fix-missing-LICENSE-field-for-u-boot.patch;patchdir=meta-renesas \
+    file://0001-Speed-up-repo-synchronization.patch;patchdir=poky \
 "
 
 ################################################################################
